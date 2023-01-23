@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { recipesController } = require("../controllers/recipes");
 const upload = require("../middlewares/upload");
-const protect = require("../middlewares/user-auth");
+const { protect } = require("../middlewares/user-auth");
 
 router.post("/", upload, protect, recipesController.insert);
 router.post("/comments/:id", protect, recipesController.addComents);

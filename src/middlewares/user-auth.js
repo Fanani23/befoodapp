@@ -2,7 +2,7 @@ const { verify } = require("../helpers/auth");
 const response = require("../helpers/common");
 const createError = require("http-errors");
 
-const protect = async (req, res, next) => {
+module.exports.protect = async (req, res, next) => {
   try {
     console.log(req.headers);
     if (
@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
       req.headers.authorization.startsWith("Bearer")
     ) {
       let token = req.headers.authorization.split(" ")[1];
-      console.log(token);
+      console.log("token", token);
       const payload = await verify(token);
       console.log(payload);
       req.payload = payload;
@@ -29,5 +29,3 @@ const protect = async (req, res, next) => {
     }
   }
 };
-
-module.exports = protect;
