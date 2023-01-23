@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 const port = process.env.PORT;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/", mainRouter);
 
 app.all("*", (req, res, next) => {
