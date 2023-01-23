@@ -7,10 +7,8 @@ require("dotenv").config();
 const mainRouter = require("./src/routes/index");
 const { response } = require("./src/helpers/common");
 const app = express();
-const xss = require("xss-clean");
 const fs = require("fs");
 
-app.use(xss());
 app.use(morgan("dev"));
 
 const corsOptions = {
