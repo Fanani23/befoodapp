@@ -19,12 +19,12 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
 
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", mainRouter);
 
 app.all("*", (req, res, next) => {
