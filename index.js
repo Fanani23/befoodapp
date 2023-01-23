@@ -30,7 +30,7 @@ app.use(
 );
 app.use(xss());
 
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/", mainRouter);
