@@ -14,7 +14,7 @@ const app = express();
 const port = process.env.PORT;
 
 const corsOptions = {
-  origin: "https://befoodapp.vercel.app",
+  origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
