@@ -4,25 +4,35 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
-const mainRouter = require("./src/routes/index");
+const helmet = require("helmet");
 const { response } = require("./src/helpers/common");
-const app = express();
+const xss = require("xss-clean");
+const mainRouter = require("./src/routes/index");
 const fs = require("fs");
 
-app.use(morgan("dev"));
+const app = express();
+const port = process.env.PORT;
 
 const corsOptions = {
-  origin: "https://befoodapp.vercel.app",
+  origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+app.use(morgan("dev"));
 app.use(cookieParser());
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false,
+  })
+);
+app.use(xss());
 
-const port = process.env.PORT;
-
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use("/", mainRouter);
 
 app.all("*", (req, res, next) => {
