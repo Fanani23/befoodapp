@@ -1,0 +1,642 @@
+# Seed Food App - Backend
+
+## Table of Contents
+
+* [About the Project](#about-the-project)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Run Locally](https://github.com/helmipradita/be-foodrecipe/edit/main/README.md#run-locally)
+* [Demo](https://github.com/helmipradita/be-foodrecipe/edit/main/README.md#demo)
+  *  [x] [API Reference - Users](#api-reference---users)
+  *  [x] [API Reference - Recipes](#api-reference---recipes)
+  *  [x] [API Reference - Like](#api-reference---like)
+  *  [x] [API Reference - Save](#api-reference---save)
+  *  [x] [API Reference - Comment](#api-reference---comment)
+* [Related Project](#related-project)
+* [Contact](#contact)
+
+## About The Project
+
+Seed Food App is a website for looking for recipes for delicious meals, there are popular recipes that can be used to find ideas for your everyday dishes. There is a login feature as a member to be able to upload the results of your own cooking recipes and can be seen by all visitors to the food recipe website. After registering and having an account, there is a menu like recipes, save recipes and comments on the recipes you follow so that you can exchange information with each other.
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Fanani23/befoodapp.git
+```
+
+Go to the project directory
+
+```bash
+  cd befoodapp
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Setup .env copy from .env.example
+
+```bash
+  DB_USER=
+  DB_HOST=
+  DB_NAME=
+  DB_PASS=
+  DB_PORT=
+
+  PORT=
+  HOST=
+
+  JWT_KEY=
+
+  PHOTO_NAME=
+  PHOTO_API_KEY=
+  PHOTO_API_SECRET=
+
+  MAIL_USERNAME=
+  MAIL_PASSWORD=
+  OAUTH_CLIENTID=
+  OAUTH_CLIENT_SECRET=
+  OAUTH_REFRESH_TOKEN=
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+## Demo
+
+API deploy 
+
+```bash
+https://befoodapp.vercel.app/
+```
+
+## API Reference - Users
+
+<details>
+<summary>Show</summary>
+<br>
+
+#### Register
+
+```
+  POST /users/register
+```
+
+Field body form
+
+| Field      | Type     | Description                     |
+| :--------- | :------- | :------------------------------ |
+| `name` | `string` | **Required**. name          |
+| `email`    | `string` | **Required**. with format email |
+| `phonenumber`    | `string` | **Required**. with format phone |
+| `password` | `string` | **Required**. password          |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "email": "virtuous@gmail.com"
+  },
+  "message": "register success please check your email"
+}
+```
+
+#### Verification
+
+```
+  POST /users/verif
+```
+
+Field body form
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `email` | `string` | **Required**. with format email        |
+| `otp`   | `string` | **Required**. otp get from inbox email |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": "virtuous@gmail.com",
+  "message": "verification account success"
+}
+```
+
+#### Login
+
+```
+  POST /users/login
+```
+
+Field body form
+
+| Field      | Type     | Description                     |
+| :--------- | :------- | :------------------------------ |
+| `email`    | `string` | **Required**. with format email |
+| `password` | `string` | **Required**. password          |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+    "name": "Virtuous",
+    "email": "virtuous@gmail.com",
+    "phone": "085708572498",
+    "photo": "https://res.cloudinary.com/dnu5su7ft/image/upload/v1672552579/default_profile.png",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0MjI0MzU3LTFhMjYtNGUwOS04ZTk3LTg5OGE0YWQ2NmFmOSIsImVtYWlsIjoiaGVsbWkucHJhZGl0YS5hQGdtYWlsLmNvbSIsImlhdCI6MTY3MzUxMDA1MCwiZXhwIjoxNjczNTEzNjUwfQ.POZH45wkR9boEahzlMNZ0f_eZAkhalm1V1ylxrK7yJk",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM0MjI0MzU3LTFhMjYtNGUwOS04ZTk3LTg5OGE0YWQ2NmFmOSIsImVtYWlsIjoiaGVsbWkucHJhZGl0YS5hQGdtYWlsLmNvbSIsImlhdCI6MTY3MzUxMDA1MCwiZXhwIjoxNjczNTk2NDUwfQ.IVuv_NQVh-fWdK3ylx4WVrwa8N4kI2TJlvWorI-_5fU"
+  },
+  "message": "login success"
+}
+```
+
+#### Get profile user
+
+```
+  GET /users
+```
+
+Field auth
+
+| Field    | Type     | Description                             |
+| :------- | :------- | :-------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+    "name": "Virtuous",
+    "email": "virtuous@gmail.com",
+    "phone": "08883565836",
+    "photo": "https://res.cloudinary.com/dnu5su7ft/image/upload/v1672552579/default_profile.png"
+  },
+  "message": "get data users success"
+}
+```
+
+#### Edit profile user
+
+```
+  PUT /users
+```
+
+Field auth
+
+| Field    | Type     | Description                             |
+| :------- | :------- | :-------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login |
+
+Field body form
+
+| Field      | Type     | Description            |
+| :--------- | :------- | :--------------------- |
+| `name` | `string` | **Required**. name |
+| `email`     | `string` | **Required**. city     |
+| `phonenumber`    | `number` | **Required**. phone    |
+| `photo`    | `file`   | **Required**. photo    |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+    "name": "Virtuous",
+    "email": "virtuous@gmail.com",
+    "phone": "08883565836",
+    "photo": "https://res.cloudinary.com/dnu5su7ft/image/upload/v1672552579/default_profile.png"
+  },
+  "message": "update data users success"
+}
+```
+
+</details>
+
+## API Reference - recipes
+
+<details>
+<summary>Show</summary>
+<br>
+
+#### get all recipes
+
+```
+  GET /recipes/search
+```
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "825057b5-7f1a-495e-86a0-329e2e9ee94e",
+      "title": "Nasi Goreng",
+      "ingredients": "Nasi putih, Bawang putih, Minyak Goreng, Penyedap rasa",
+      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501227/foodrecipe/gxucm71tmnpsedjlhgcc.jpg",
+      "videos": "youtube.com",
+      "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
+      "author": "Helmi Pradita pradita",
+      "created_at": "tuesday  , 10 January   2023",
+      "updated_at": "thursday , 12 January   2023"
+    }
+}
+```
+
+#### Add recipes
+
+```
+  POST /recipes
+```
+
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Field body form
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `title` | `string` | **Required**. title        |
+| `ingredients`   | `string` | **Required**. ingredients |
+| `videos`   | `string` | **Required**. videos |
+| `photo`   | `string` | **Required**. photo |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "dddfe2ee-3688-4e68-b73f-32bf66661732",
+    "title": "Insert baru 7",
+    "ingredients": "Tepung terigu",
+    "videos": "youtube.com",
+    "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673915955/foodrecipe/rt9fe46qkeqffqebxc0c.jpg"
+  },
+  "message": "insert recipe success"
+}
+```
+
+#### Get my recipes
+
+```
+  GET /recipes
+```
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "dddfe2ee-3688-4e68-b73f-32bf66661732",
+      "title": "Insert baru 7",
+      "ingredients": "Tepung terigu",
+      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673915955/foodrecipe/rt9fe46qkeqffqebxc0c.jpg",
+      "videos": "youtube.com",
+      "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+      "author": "Helmi Pradita update",
+      "created_at": "tuesday  , 17 January   2023",
+      "updated_at": "tuesday  , 17 January   2023"
+    }
+  ],
+  "message": "get data recipes success"
+}
+```
+
+#### Detail recipes by id
+
+```
+  GET /recipes/dddfe2ee-3688-4e68-b73f-32bf66661732
+```
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "c79762f0-4dfb-46f3-bd3b-17c62f9ccfb1",
+    "title": "Es Campur",
+    "ingredients": "Es, Air, Kesegaran",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501163/foodrecipe/vzdh9u3mixqpoozef08u.png",
+    "videos": "youtube.com",
+    "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
+    "author": "Virtuous",
+    "posted_at": "wednesday, 11 January 2023",
+  },
+  "message": "get data recipes success"
+}
+```
+
+#### Edit recipes
+
+```
+  PUT /recipes/dddfe2ee-3688-4e68-b73f-32bf66661732
+```
+
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Field body form
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `title` | `string` | **Required**. title        |
+| `ingredients`   | `string` | **Required**. ingredients |
+| `videos`   | `string` | **Required**. videos |
+| `photo`   | `string` | **Required**. photo |
+
+Field body form
+
+| Field      | Type     | Description                     |
+| :--------- | :------- | :------------------------------ |
+| `email`    | `string` | **Required**. with format email |
+| `password` | `string` | **Required**. password          |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "dddfe2ee-3688-4e68-b73f-32bf66661732",
+    "title": "Es Teler",
+    "ingredients": "Air baru",
+    "videos": "youtube.com baru",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673916081/foodrecipe/fyoqygiqegyye7t6stce.jpg"
+  },
+  "message": "Edit recipe success"
+}
+```
+
+</details>
+
+## API Reference - Like
+
+<details>
+<summary>Show</summary>
+<br>
+
+#### Add like
+
+```
+  POST /like/f3b5229f-2caa-45cd-aa8b-77ade69a7e46
+```
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "63be9a64-2ead-4367-9312-26db85cd0cc9",
+    "recipe_id": "f3b5229f-2caa-45cd-aa8b-77ade69a7e46",
+    "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9"
+  },
+  "message": "insert like recipe success"
+}
+```
+
+#### Get my like
+
+```
+  GET /like
+```
+
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "63be9a64-2ead-4367-9312-26db85cd0cc9",
+      "recipe_id": "f3b5229f-2caa-45cd-aa8b-77ade69a7e46",
+      "recipes_name": "Es Campur",
+      "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501269/foodrecipe/u6bi7xhbt7xixhethfcw.jpg",
+      "created_at": "tuesday  , 17 January   2023"
+    }
+  ],
+  "message": "get data like success"
+}
+```
+
+</details>
+
+## API Reference - Like
+
+<details>
+<summary>Show</summary>
+<br>
+
+#### Add save
+
+```
+  POST /save/bd6406cc-e48c-47d3-b670-5e9db42ea9df
+```
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "61088b3b-9e7d-4d89-b3ad-d0d7b2dc8369",
+    "recipe_id": "bd6406cc-e48c-47d3-b670-5e9db42ea9df",
+    "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9"
+  },
+  "message": "insert save recipe success"
+}
+```
+
+#### Get my save
+
+```
+  GET /save
+```
+
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "61088b3b-9e7d-4d89-b3ad-d0d7b2dc8369",
+      "recipe_id": "bd6406cc-e48c-47d3-b670-5e9db42ea9df",
+      "recipes_name": "Es Teler",
+      "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501377/foodrecipe/y5ie2mwg6rtjdjpcrxbg.jpg",
+      "created_at": "tuesday  , 17 January   2023"
+    }
+  ],
+  "message": "get data save success"
+}
+```
+
+</details>
+
+## API Reference - Comment
+
+<details>
+<summary>Show</summary>
+<br>
+
+#### Add comment
+
+```
+  POST /comment/bd6406cc-e48c-47d3-b670-5e9db42ea9df
+```
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+Field body form
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `comment` | `string` | **Required**. comment about recipes        |
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "id": "c5bf94c8-e0c8-4dd8-9e5c-63ae5f778bcd",
+    "comment": "Es nya segar",
+    "recipe_id": "bd6406cc-e48c-47d3-b670-5e9db42ea9df",
+    "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9"
+  },
+  "message": "insert comment success"
+}
+```
+
+#### Get my comment
+
+```
+  GET /comment
+```
+
+Field auth
+
+| Field   | Type     | Description                            |
+| :------ | :------- | :------------------------------------- |
+| `bearer` | `string` | **Required**. token from response login        |
+
+
+Response 200
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": [
+    {
+      "id": "c5bf94c8-e0c8-4dd8-9e5c-63ae5f778bcd",
+      "comment": "Es nya segar",
+      "recipes_id": "bd6406cc-e48c-47d3-b670-5e9db42ea9df",
+      "recipes_name": "Nasi pecel",
+      "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
+      "created_at": "tuesday  , 17 January   2023"
+    }
+  ],
+  "message": "get data comment success"
+}
+```
+
+</details>
+
+## Related Project
+* [`Backend Project Recipe `](https://github.com/Fanani23/befoodapp)
+* [`REST API Recipe`](https://befoodapp.vercel.app/)
+
+## Contact
+
+Contributors names and contact info Fullstack Developers
+
+* Pramudia Syahrul Fanani [@imoody](https://github.com/Fanani23/)
