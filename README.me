@@ -257,15 +257,14 @@ Response 200
   "statusCode": 200,
   "data": [
     {
-      "id": "825057b5-7f1a-495e-86a0-329e2e9ee94e",
-      "title": "Nasi Goreng",
-      "ingredients": "Nasi putih, Bawang putih, Minyak Goreng, Penyedap rasa",
-      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501227/foodrecipe/gxucm71tmnpsedjlhgcc.jpg",
-      "videos": "youtube.com",
-      "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
-      "author": "Helmi Pradita pradita",
-      "created_at": "tuesday  , 10 January   2023",
-      "updated_at": "thursday , 12 January   2023"
+      "id": "c79762f0-4dfb-46f3-bd3b-17c62f9ccfb1",
+    "title": "Es Campur",
+    "ingredients": "Es, Air, Kesegaran",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501163/foodrecipe/vzdh9u3mixqpoozef08u.png",
+    "videos": "youtube.com",
+    "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
+    "author": "Virtuous",
+    "posted_at": "wednesday, 11 January 2023"
     }
 }
 ```
@@ -298,12 +297,14 @@ Response 200
   "success": true,
   "statusCode": 200,
   "data": {
-    "id": "dddfe2ee-3688-4e68-b73f-32bf66661732",
-    "title": "Insert baru 7",
-    "ingredients": "Tepung terigu",
+    "id": "c79762f0-4dfb-46f3-bd3b-17c62f9ccfb1",
+    "title": "Es Campur",
+    "ingredients": "Es, Air, Kesegaran",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501163/foodrecipe/vzdh9u3mixqpoozef08u.png",
     "videos": "youtube.com",
-    "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
-    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673915955/foodrecipe/rt9fe46qkeqffqebxc0c.jpg"
+    "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
+    "author": "Virtuous",
+    "posted_at": "wednesday, 11 January 2023"
   },
   "message": "insert recipe success"
 }
@@ -312,7 +313,7 @@ Response 200
 #### Get my recipes
 
 ```
-  GET /recipes
+  GET /recipes/user-recipes/
 ```
 Field auth
 
@@ -328,15 +329,14 @@ Response 200
   "statusCode": 200,
   "data": [
     {
-      "id": "dddfe2ee-3688-4e68-b73f-32bf66661732",
-      "title": "Insert baru 7",
-      "ingredients": "Tepung terigu",
-      "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673915955/foodrecipe/rt9fe46qkeqffqebxc0c.jpg",
-      "videos": "youtube.com",
-      "user_id": "34224357-1a26-4e09-8e97-898a4ad66af9",
-      "author": "Helmi Pradita update",
-      "created_at": "tuesday  , 17 January   2023",
-      "updated_at": "tuesday  , 17 January   2023"
+      "id": "c79762f0-4dfb-46f3-bd3b-17c62f9ccfb1",
+    "title": "Es Campur",
+    "ingredients": "Es, Air, Kesegaran",
+    "photo": "http://res.cloudinary.com/dnu5su7ft/image/upload/v1673501163/foodrecipe/vzdh9u3mixqpoozef08u.png",
+    "videos": "youtube.com",
+    "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
+    "author": "Virtuous",
+    "posted_at": "wednesday, 11 January 2023"
     }
   ],
   "message": "get data recipes success"
@@ -346,7 +346,7 @@ Response 200
 #### Detail recipes by id
 
 ```
-  GET /recipes/dddfe2ee-3688-4e68-b73f-32bf66661732
+  GET /recipes/detail/dddfe2ee-3688-4e68-b73f-32bf66661732
 ```
 Field auth
 
@@ -369,7 +369,7 @@ Response 200
     "videos": "youtube.com",
     "user_id": "3d3c5f0c-1733-491a-baa6-c5990d1b2eb2",
     "author": "Virtuous",
-    "posted_at": "wednesday, 11 January 2023",
+    "posted_at": "wednesday, 11 January 2023"
   },
   "message": "get data recipes success"
 }
@@ -378,7 +378,7 @@ Response 200
 #### Edit recipes
 
 ```
-  PUT /recipes/dddfe2ee-3688-4e68-b73f-32bf66661732
+  PUT /recipes/update/dddfe2ee-3688-4e68-b73f-32bf66661732
 ```
 
 Field auth
@@ -431,7 +431,7 @@ Response 200
 #### Add like
 
 ```
-  POST /like/f3b5229f-2caa-45cd-aa8b-77ade69a7e46
+  POST /liked
 ```
 Field auth
 
@@ -457,7 +457,7 @@ Response 200
 #### Get my like
 
 ```
-  GET /like
+  GET /liked
 ```
 
 Field auth
@@ -489,7 +489,7 @@ Response 200
 
 </details>
 
-## API Reference - Like
+## API Reference - Save
 
 <details>
 <summary>Show</summary>
@@ -565,7 +565,7 @@ Response 200
 #### Add comment
 
 ```
-  POST /comment/bd6406cc-e48c-47d3-b670-5e9db42ea9df
+  POST /comments/bd6406cc-e48c-47d3-b670-5e9db42ea9df
 ```
 Field auth
 
@@ -598,7 +598,7 @@ Response 200
 #### Get my comment
 
 ```
-  GET /comment
+  GET /comments/bd6406cc-e48c-47d3-b670-5e9db42ea9df
 ```
 
 Field auth
